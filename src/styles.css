@@ -1,6 +1,13 @@
 html, body {
 	margin: 0;
-	background-color: #00952a;
+	background-color: dodgerblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.logo {
+	width: 200px;
+	border-radius: 0;
 }
 img {
 	width: 150px;
