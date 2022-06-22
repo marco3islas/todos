@@ -1,14 +1,16 @@
+const path                 = require('path');
 const HtmlWebPackPlugin    = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin           = require('copy-webpack-plugin');
 
 module.exports = {
+
+   entry: './src/index',
    mode: 'development',
 
     output: {
-        path: './src/index.html',
-        clean: true
-
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist'),
     },
 
     module: {
@@ -19,7 +21,7 @@ module.exports = {
                 // manda a llamar al paquete html loader
                 loader: 'html-loader',
                 options: {
-                    attributes: false
+                    sources: false
                 }
             },
             {
@@ -37,6 +39,9 @@ module.exports = {
                 loader: 'file-loader'
             }
         ]
+    },
+    stats: {
+        children: true,
     },
     optimization: {},
 

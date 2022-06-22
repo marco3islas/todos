@@ -1,13 +1,16 @@
+const HtmlWebPack    = require('html-webpack-plugin');
+const MiniCssExtract = require('mini-css-extract-plugin');
+const CopyPlugin           = require("copy-webpack-plugin");
 
-const HtmlWebPackPlugin    = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin           = require('copy-webpack-plugin');
+const CssMiniMizer   = require('css-minimizer-webpack-plugin');
+const Terser         = require('terser-webpack-plugin');
 
 module.exports = {
-   mode: 'production',
+   mode: "production",
 
     output: {
-        clean: true
+        clean: true,
+        filename: 'main.[contenthash].js'
     },
 
     module: {
@@ -28,25 +31,46 @@ module.exports = {
             },
             {
                 test: /styles.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                use: [MiniCssExtract.loader, 'css-loader']
                 
             },
             {
                 test: /\.(png|jpe?g|gif|bmp|webp)$/,
                 loader: 'file-loader'
-            }
+            },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader",
+                  options: {
+                    presets: ['@babel/preset-env']
+                  }
+                }
+              }
         ]
     },
-    optimization: {},
+    stats: {
+        children: true
+    },
+
+
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMiniMizer(),
+            new Terser(),
+        ]
+    },
 
     plugins: [
-        new HtmlWebPackPlugin({
+        new HtmlWebPack({
             title: 'Mi WebPack App',
-            filename: 'index.html',
+            //filename: 'index.html',
             template: './src/index.html'
         }),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
+        new MiniCssExtract({
+            filename: '[name].[fullhash].css',
             ignoreOrder: false,
 
         }),
