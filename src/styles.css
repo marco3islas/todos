@@ -81,6 +81,19 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+@media (max-width: 600px){
+
+	.todoapp h1 {
+		font-size: 3rem;
+	}
+}
+@media (max-width: 400px){
+
+	.todoapp h1 {
+		font-size: 2rem;
+	}
+}
+
 .new-todo,
 .edit {
 	position: relative;
@@ -281,6 +294,8 @@ body {
 	            0 16px 0 -6px #f6f6f6,
 	            0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
+
+
 
 .todo-count {
 	float: left;
